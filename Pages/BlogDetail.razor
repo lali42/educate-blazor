@@ -1,0 +1,47 @@
+@page "/product/{BlogEntryId:int}"
+@using BlazorApp.Data
+
+<!-- new collection section start -->
+  <div class="collection_text">Products</div>
+    <div class="layout_padding collection_section">
+    	<div class="container">
+    	    <div class="collection_section_2">
+    	    	<div class="row">
+    	    		<div class="col-md-6">
+    	    			<div class="about-img">
+    	    				<button class="new_bt">New</button>
+    	    				<div class="shoes-img"><img src="@this.CurrentEntry.Img1"></div>
+    	    				<u class="best_text">@this.CurrentEntry.Name</u>
+    	    				<div class="dolar_text">฿<strong style="color: #f12a47;">@this.CurrentEntry.Price</strong> </div>
+    	    			</div>
+    	    			<button class="seemore_bt">BUY NOW</button>
+    	    		</div>
+    	    		<div class="col-md-6">
+    	    			<div class="about-img2">
+    	    				<div class="shoes-img2"><img src="@this.CurrentEntry.Img2"></div>
+                            <div class="cen">
+                                <h4>@this.CurrentEntry.Descrip</h4>
+                            </div>
+    	    			</div>
+                        
+    	    		</div>
+    	    	</div>
+    	    </div>
+    	</div>
+    </div>
+	<!-- new collection section end -->
+ 
+@code {
+ 
+    [Parameter]
+    public int BlogEntryId { get; set; }
+
+    public BlogEntry CurrentEntry { get; set; } 
+
+    protected override void OnParametersSet()
+    {
+        this.CurrentEntry = BlogDatabase.Default.BlogEntries
+                                .Where(entry => entry.ID == this.BlogEntryId)
+                                .FirstOrDefault();
+    }
+}
